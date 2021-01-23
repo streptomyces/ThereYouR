@@ -7,6 +7,17 @@
 * Environment and History
 * File, Plots, Help etc.
 
+### RStudio pane layout
+
+Use the drop down menus to do the following.
+
+    Tools -> Global Options -> Pane layout
+
+Arrange to have *Source* on the top left and *Console*
+on the top right. With this arrangement we can minimise
+two bottom panes most of the time and have more of
+screen space.
+
 ### Getting started
 
 * Comments begin with #. Everything after a # is ignored

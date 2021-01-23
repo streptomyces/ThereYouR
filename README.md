@@ -6,9 +6,6 @@
   have reasonably good internet access, webcam, microphone
   and speakers.
 
-* You must have your cameras on during the course so the
-  instructor has some visual feedback.
-
 * You should have a working installation of R and RStudio
   on the computer on which you will be attending this
   course. Please test this before hand and let us know if
@@ -21,14 +18,9 @@
 
 ## Some requests
 
-* Put your phones away during the course.
-* There is a break every 90 minutes.
-  You can use your phones then.
-* Discussing with your neighbours is fine
-  (even encouraged) when you are doing the
-  exercises but see next point.
-* Please stop all conversation when the instructor
-  begins to speak.
+* Please have your cameras on during the course so the
+  instructor has some visual feedback.
+
 * Ask if something is not clear.
 
 ## Timings for both days of the course.
@@ -46,6 +38,7 @@ Course                       1600  to   1730
 ## Before we start
 
 * Who are we.
+
 * The focus of this course is on R syntax and
   techniques rather than statistics.
 
@@ -105,14 +98,4 @@ with me. Resist the temptation to charge ahead.
   tasks but keep in mind that, if you got the right results,
   your way of doing them may also be correct.
 
-## RStudio pane layout
-
-Use the drop down menus to do the following.
-
-    Tools -> Global Options -> Pane layout
-
-Arrange to have *Source* on the top left and *Console*
-on the top right. With this arrangement we can minimise
-two bottom panes most of the time and have more of
-screen space.
 
