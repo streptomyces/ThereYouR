@@ -15,12 +15,12 @@
 * Type commands in the _source_ editor.
 
 * To run a command from the _source_ editor place the
-  cursor anywhere on that line and press Control-Enter.
+  cursor anywhere on that line and press `Control-Enter`.
 
 * You can also select multiple lines and then press
-  Control-Enter to run all the selected lines.
+  `Control-Enter` to run all the selected lines.
 
-* Finally, you can use Control-Shift-Enter to source the
+* Finally, you can use `Control-Shift-Enter` to source the
   entire script.
 
 * The action happens in the _Console_ pane. i.e. any

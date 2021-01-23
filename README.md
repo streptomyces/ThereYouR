@@ -1,21 +1,23 @@
 # Advanced R 3 and 4 Feb 2021
 
-## As soon as you arrive
+## Requirement to be met _before_ the course.
 
-* Log in on one of the PCs using your institute
-  identity. This will ensure that you will have
-  access to all of what you do during this course,
-  after the course.
-* Anyone unable to login as themselves should let me
-  know.
+* Course will be delivered over a Zoom meeting so you should
+  have reasonably good internet access, webcam, microphone
+  and speakers.
+
+* You must have your cameras on during the course so the
+  instructor has some visual feedback.
+
+* You should have a working installation of R and RStudio
+  on the computer on which you will be attending this
+  course. Please test this before hand and let us know if
+  you need any help with this.
+
 * Point your web browser to the url shown at the top
   which is the same as
 
-https://github.com/streptomyces/ThereYouR
-
-**http://streptomyces.s3-website-eu-west-1.amazonaws.com/001readme.html**
-
-* Start RStudio.
+* https://github.com/streptomyces/ThereYouR
 
 ## Some requests
 
@@ -29,7 +31,7 @@ https://github.com/streptomyces/ThereYouR
   begins to speak.
 * Ask if something is not clear.
 
-## Timings for both today and tomorrow.
+## Timings for both days of the course.
 
 ~~~ 
 Course                       0930  to   1100
@@ -46,8 +48,6 @@ Course                       1600  to   1730
 * Who are we.
 * The focus of this course is on R syntax and
   techniques rather than statistics.
-* Although real data is used a lot, we also
-  use toy data generated as we go along.
 
 ## Getting the scripts and data we will be using
 
@@ -100,7 +100,7 @@ with me. Resist the temptation to charge ahead.
 
 + These tasks will be described in plain english.
 + You will have to think how to achieve them in R using
-   as many steps and variables as you need.
+  as many steps and variables as you need.
 + Finally, I will show you how I would have done the
   tasks but keep in mind that, if you got the right results,
   your way of doing them may also be correct.
