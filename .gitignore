@@ -31,3 +31,7 @@
 test_*
 .*sw[op]
 Session.vim
+scripts/
+code/
+data/
+test/

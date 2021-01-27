@@ -83,19 +83,36 @@ with me. Resist the temptation to charge ahead.
 ## How will this course work?
 
 - I will introduce methods by talking about them.
+
 - You will run some commands along with me to see the
   methods in action.
+
 - I will explain the commands and the syntax you have
   just seen in action.
 
 
 ### Sometimes there will be things for you to do on your own.
 
-+ These tasks will be described in plain english.
-+ You will have to think how to achieve them in R using
-  as many steps and variables as you need.
-+ Finally, I will show you how I would have done the
-  tasks but keep in mind that, if you got the right results,
-  your way of doing them may also be correct.
++ These tasks will be described in semi-plain english.
+
++ You will have to think how to achieve them in R using as
+many steps and variables as you need.
+
++ Finally, I will show you how I would have done the tasks.
+
+### There is (almost always) more than one way to do it.
+
++ Your way of doing things might be different from mine but
+correct nevertheless. There isn't one correct way. It is a
+matter of style.
+
++ RStudio (as a company) is contributing lots of alternative
+functions to those providing similar functionalities in
+converntional R packages. The _tidyverse_ metapackage which
+includes _ggplot2_ and several other widely used packages.
+
++ For any given task, some find it easier to do it using
+ _tidyverse_ while other prefer more conventional functions.
+
 
 
