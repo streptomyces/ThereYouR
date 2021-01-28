@@ -65,11 +65,8 @@ with me. Resist the temptation to charge ahead.
 
     list.files()
     
-    download.file("http://streptomyces.s3-eu-west-1.amazonaws.com/itr.zip",
-    "itr.zip")
-
-    download.file("http://streptomyces.s3-eu-west-1.amazonaws.com/itr.pdf",
-    "itr.pdf")
+    download.file("http://streptomyces.s3-eu-west-1.amazonaws.com/adr.zip",
+    "adr.zip")
 
     list.files()
 

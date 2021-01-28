@@ -14,11 +14,8 @@
 
 # They range in complexity and flexibility.
 
-vnz.genes <- read.csv("../data/vnz_genes.csv", header = T,
+vnz.genes <- read.csv("data/vnz_genes.csv", header = T,
 stringsAsFactors = F, row.names = "locus.tag")
-
-
-
 
 # }}}
 
