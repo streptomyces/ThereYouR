@@ -13,10 +13,9 @@
   course. Please test this before hand and let us know if
   you need any help with this.
 
-* Point your web browser to the url shown at the top
-  which is the same as
+* Point your web browser to the URL shown below.
 
-* https://github.com/streptomyces/ThereYouR
+### https://streptomyces.github.io/ThereYouR/
 
 ## Some requests
 
@@ -69,10 +68,9 @@ Your way of doing things might be different from mine but
 correct nevertheless.
 
 ## Things mentioned below will be done during the course
-## Please don't do them before hand. 
+### Please don't do them before hand. 
 
-#### Getting the scripts and data we
-#### will be using during the course
+#### Getting the scripts and data we will be using during the course
 
 In Rstudio, use the drop down menu to do
 
