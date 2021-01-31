@@ -412,7 +412,7 @@ rm(x);
 # should be used everytime we refer to "x".
 # }}}
 
-# {{{ Vectors (vectors
+# {{{ Vectors (vectors)
 ###############
 ### Vectors ###
 ###############
