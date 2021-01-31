@@ -1,4 +1,250 @@
-# {{{ Data structures
+# vim: set tw=60 nosmartindent: ###
+# {{{ README (README.md);
+# Advanced R 3 and 4 Feb 2021
+
+## Requirement to be met _before_ the course.
+
+* Course will be delivered over a Zoom meeting so you should
+  have reasonably good internet access, webcam, microphone
+  and speakers.
+
+* You should have a working installation of R and RStudio
+  on the computer on which you will be attending this
+  course. Please test this before hand and let us know if
+  you need any help with this.
+
+* Point your web browser to the url shown at the top
+  which is the same as
+
+* https://github.com/streptomyces/ThereYouR
+
+## Some requests
+
+* Please have your cameras on during the course so the
+  instructor has some visual feedback.
+
+* Ask if something is not clear.
+
+## Timings for both days of the course.
+
+~~~ 
+Course                       0930  to   1100
+Coffee break                 1100  to   1130
+Course                       1130  to   1300
+Lunch (not provided)         1300  to   1400
+Course                       1400  to   1530
+Coffee break                 1530  to   1600
+Course                       1600  to   1730
+~~~
+
+## Before we start
+
+* Who are we.
+
+* The focus of this course is on R syntax and
+  techniques rather than statistics.
+
+## Getting the scripts and data we will be using
+
+In Rstudio, use the drop down menu to do
+
+    File -> New File -> R Script
+
+In the blank R script we will write and run
+the indented lines shown below. Please do this
+with me. Resist the temptation to charge ahead.
+
+~~~ {.r}
+    setwd("u:/")
+    unlink("Rtrain", recursive = TRUE)
+    dir.create("Rtrain")
+
+    setwd("Rtrain")
+
+    getwd()
+
+    unlink("*")
+
+    list.files()
+    
+    download.file("https://streptomyces.s3-eu-west-1.amazonaws.com/adr.zip",
+    "adr.zip")
+
+    list.files()
+
+    unzip("adr.zip")
+
+    list.files()
+~~~
+
+## How will this course work?
+
+- I will introduce methods by talking about them.
+
+- You will run some commands along with me to see the
+  methods in action.
+
+- I will explain the commands and the syntax you have
+  just seen in action.
+
+
+### Sometimes there will be things for you to do on your own.
+
++ These tasks will be described in semi-plain english.
+
++ You will have to think how to achieve them in R using as
+many steps and variables as you need.
+
++ Finally, I will show you how I would have done the tasks.
+
+### There is (almost always) more than one way to do it.
+
++ Your way of doing things might be different from mine but
+correct nevertheless. There isn't one correct way. It is a
+matter of style.
+
++ RStudio (as a company) is contributing lots of alternative
+functions to those providing similar functionalities in
+converntional R packages. The _tidyverse_ metapackage which
+includes _ggplot2_ and several other widely used packages.
+
++ For any given task, some find it easier to do it using
+ _tidyverse_ while other prefer more conventional functions.
+
+# }}}
+
+# {{{ RStudio (rstudio.md)
+# RStudio
+
+### Four panes
+
+* Source editor
+* Console
+* Environment and History
+* File, Plots, Help etc.
+
+### RStudio pane layout
+
+Use the drop down menus to do the following.
+
+    Tools -> Global Options -> Pane layout
+
+Arrange to have *Source* on the top left and *Console*
+on the top right. With this arrangement we can minimise
+two bottom panes most of the time and have more of
+screen space.
+
+### Getting started
+
+* Comments begin with #. Everything after a # is ignored
+  by R.
+
+* Type commands in the _source_ editor.
+
+* To run a command from the _source_ editor place the
+  cursor anywhere on that line and press `Control-Enter`.
+
+* You can also select multiple lines and then press
+  `Control-Enter` to run all the selected lines.
+
+* Finally, you can use `Control-Shift-Enter` to source the
+  entire script.
+
+* The action happens in the _Console_ pane. i.e. any
+  output from R is shown in the console frame. You can
+  also type commands directly in the console but this
+  is not recommended because changing and re-running
+  commands directly in the console is inconvenient.
+
+* R keeps a history of your commands which you can see in
+  the history tab of RStudio.
+
+* You can select and run commands from the history tab as
+  well. Just press enter on the current line or select some
+  lines and press enter.
+
+* However you run a command, it is like typing it into
+  the console and pressing Enter.
+
+# }}}
+
+# {{{ R (r.md)
+# R
+
+* R is the interpreter for the R language.
+
+* Words combine to make _expressions_ which are _evaluated_.
+
+* Evaluated value is printed on the console or, it may be
+assigned to an object.
+
+* R is case-sensitive. `geneName` is not the same as
+`GeneName`.
+
+### Some syntax identifying features
+
+~~~ 
+Function      Unquoted word followed      mean()
+              by parentheses
+
+Variable      Unquoted word               gene.lens
+
+String        Quoted alphanumeric         "whiA"
+literals      characters
+
+Numeric       Unquoted digits and         2345, 42L,
+literals      scientific notation         1e6, 1e-6
+~~~
+
+* Parentheses, (), are required in function calls even if
+you are not passing any arguments to the function being
+called. `ls()` works but `ls` does not, at least not in
+the way you want it to.
+
+* Parentheses makes it easy to identify individual
+function calls in long and complex R statements where
+function calls are embedded within other function calls.
+
+* Unquoted words which are not reserved words are assumed
+to be variable names.
+`help(Syntax)`; `help(reserved)`; `help(Quotes)`;
+
+* Other than reserved words, almost no restrictions on
+names. Choose sensible names.
+
+    mean <- c(2,3,4,5); # example of bad name.
+    mean(mean);
+
+* Commands can continue over multiple lines.
+
+* Semicolons are only needed if you put two commands on one line.
+
+    x <- 3; y <- x * 3; x; y
+
+* Matching parentheses and quotes are automatically
+inserted. You can disable this in options. I do.
+
+`Tools -> Global Options -> Code -> Editing`
+
+* If you get inside a complicated command which you
+cannot finish, try Escape (Control-C in Linux) to bail out.
+This usually happens because of unmatched parentheses or
+quotes.
+
+## Use names as needed
+
+- While doing the tasks during this course you will
+  not always be explicitly asked to name your variables.
+
+- Please name variables as needed e.g. if a task says make a
+  vector of the numbers 1 to 10 do `x <- seq(1,10)` instead
+  of `seq(1,10)`
+
+Then you can refer to `x` in the subsequent steps of the
+task.
+# }}}
+
+# {{{ Data structures (struct)
 #######################
 ### Data structures ###
 #######################
@@ -14,12 +260,26 @@
 
 # They range in complexity and flexibility.
 
-vnz.genes <- read.csv("data/vnz_genes.csv", header = T,
-stringsAsFactors = F, row.names = "locus.tag")
+# Reading data from a text file.
+vnz.df <- read.csv("data/vnz_genes.csv", header = T,
+stringsAsFactors = F)
+
+# Writing data to a text file.
+write.csv(vnz.df, "out/vnz_genes.csv", quote = F,
+row.names = F);
+
+### Tidyverse style ###
+
+# Reading data from a text file.
+vnz.tib <- read_csv("data/vnz_genes.csv");
+
+# Writing data to a text file.
+write_csv(vnz.tib, "out/vnz_genes.csv",
+quote_escape = "none")
 
 # }}}
 
-# {{{ Basic data types
+# {{{ Basic data types (types)
 ########################
 ### Basic data types ###
 ########################
@@ -27,16 +287,15 @@ stringsAsFactors = F, row.names = "locus.tag")
 # Character (strings of characters)
 # Numeric
   ## Integers
-  ## Real (double precision floating point numbers)
-# Logical. TRUE or FALSE only.
+  ## Double (double precision floating point numbers)
+# Logical. Boolean. TRUE or FALSE only.
 # Complex
 # Raw
 
 # We will not using the Complex and Raw types.
 
-# Mostly we don't have to worry whether our numeric
-# variables are integers or doubles. There are functions to
-# coerce one into another if needed.
+# We don't have to worry whether our numeric variables are
+# integers or doubles, except when it does matter!
 
 # Explain x <- 42L
 
@@ -48,34 +307,50 @@ typeof(x);
 
 typeof(y);
 
+# It is not possible to make a variable of one of the basic
+# data types. You can only have vectors of these types.
+
 # }}}
 
-# {{{ Classes
+# {{{ Classes (classes)
 ###############
 ### Classes ###
 ###############
 
 # Data structures with associated functions (methods).
 
-# e.g. the class data.frame has the following methods.
+# e.g. Some of the methods in the the class data.frame are
 
 # [             [[            [[<-          [<-           $<-          
 # aggregate     anyDuplicated as.data.frame as.list       as.matrix    
 # by            cbind         coerce        dim           dimnames     
 # dimnames<-    droplevels    duplicated    edit          format       
-# formula       head          initialize    is.na         Math         
-# merge         na.exclude    na.omit       Ops           plot         
-# print         prompt        rbind         row.names     row.names<-  
-# rowsum        show          slotsFromS3   split         split<-      
-# stack         str           subset        summary       Summary      
-# t             tail          transform     type.convert  unique       
-# unstack       within 
 
 # A class is a recipe for making objects and a "constructor"
-# method is usually available.
+# method is usually available but often you will bring them
+# into existence simply by assignment.
+
+### Classes provided by base R ###
+
+## Vector Classes ##
+# character
+# complex
+# double
+# expression
+# integer
+# list
+# logical
+# numeric
+# raw
+
+
+# function
+# NULL
+
+
 # }}}
 
-# {{{ Objects
+# {{{ Objects (objects)
 ###############
 ### Objects ###
 ###############
@@ -94,7 +369,7 @@ typeof(y);
 # structure that is capable of storing multiple values.
 # }}}
 
-# {{{ Variables, names, symbols, bindings
+# {{{ Variables, names, symbols, bindings (variables)
 ###############################################
 ### Variables, names, symbols and, bindings ###
 ###############################################
@@ -122,8 +397,8 @@ typeof(y);
 # let us refer to variables much more easily than would be
 # possible through memory addresses.
 
-# Nothing prevents two symbols from refering to the same
-# memory address. In fact this is what happens after
+# To symbols (names) may refer to the same memory address.
+# In fact this is what happens after
 
 y <- x;
 
@@ -131,14 +406,13 @@ y <- x;
 
 rm(x);
 
-
 # On a given machine, memory addresses are unique, but
 # variable names are not. Within one session of R you can
 # have more than one variables named "x" and the right one
 # should be used everytime we refer to "x".
 # }}}
 
-# {{{ Vectors
+# {{{ Vectors (vectors
 ###############
 ### Vectors ###
 ###############
@@ -215,11 +489,12 @@ x[v];
 
 # 2. Examine the output of unname(x).
 
-# 3. Make a copy of x in vecx. We will use it in the next
-# script.
+# 3. Make a copy of x in vecx. We will use it when we look
+# at functions.
+
 # }}}
 
-# {{{ Functions
+# {{{ Functions (functions)
 #################
 ### Functions ###
 #################
@@ -246,7 +521,7 @@ bmi <- function(kilograms, metres) {
   return(kilograms / metres ** 2);
 }
 
-bmi(m = 1.65, 65);
+bmi
 
 ### Components of functions ###
 
@@ -269,6 +544,8 @@ bmi(m = 1.65, 65);
 #  3. Positional matching.
 
 # We will use the seq() function of R as an example.
+
+help(seq);
 
 # positional arguments
 seq(2, 10);
@@ -307,7 +584,8 @@ bmi(m = 1.68, 65)
 ####################################
 
 # If a function returns something and you want to keep it
-# you have to assign it to a (new) object.
+# you have to assign it to a (new) object. Pre-existing
+# objects will be over-written!
 
 x <- seq(2, 10);
 x;
@@ -384,34 +662,29 @@ x <- y <- z <- 42
 
 ######################################################
 
-# 1. Write a function named cel2fah which takes one
-# argument, the temperature in degrees Celsius, and returns
-# the same temperature in Fahrenheit.
-
-# 2. Hints:
-# - Multiply Celsius by 1.8 then add 32 to get Fahrenheit.
+# The function cel2fah  written below takes one argument,
+# the temperature in degrees Celsius, and returns the same
+# temperature in Fahrenheit.
 
 cel2fah <- function(cel) {
 fah <- (cel * 1.8) + 32;
 return(fah)
 }
 
-
-### Write your function here ###
-
-# 3. Test your function by calling it as below.
+# Test cel2fah by calling it as below.
 
 #    a. cel2fah(100)
 #    b. cel2fah(0)
 #    c. cel2fas(ds)
 
-# 4. Try the below.
+
+# Functions as objects. Try the below.
 
 curve(cel2fah, -20, 50, xlab = "Celsius",
       ylab = "Fahrenheit", lwd = 3, col = "royalblue")
 
-# Functions are objects. We passed a function as an argument
-# to another function.
+# Above, we passed a function as an argument
+# to another function. help("curve").
 
 # Another example of passing a function as an argument to
 # another function.
@@ -427,23 +700,29 @@ curve(cos, deg2rad(0), deg2rad(360), col = "blue", lwd = 3, add = T);
 ########################
 ### ... (three dots) ###
 ########################
+# help("dots");
 
-dotdemo <- function(x, ...) {
+dotdemo1 <- function(x, ...) {
   cat("x is: ", x, "\n");
   dots <- list(...);
   cat("Then: ", dots[[1]], "\n");
 }
-dotdemo("stuff", "morestuff");
+dotdemo1("stuff", "morestuff");
 
-
-dotdemo <- function(x, ...) {
+dotdemo2 <- function(x, ...) {
   cat("x is: ", x, "\n");
   dots <- list(...);
   cat("y: ", dots$y, "\n");
+  cat("y: ", dots[[1]], "\n");
   cat("Then: ", dots[[2]], "\n");
 }
-dotdemo(x = "stuff", y = "morestuff", 23);
+dotdemo2(x = "stuff", y = "morestuff", 23);
 
+dotdemo3 <- function(x, ...) {
+  cat("x is: ", x, "\n");
+  cat("Then: ", ..1, "\n");
+}
+dotdemo3(x = "stuff", 23);
 
 ##############################
 ### Operators as functions ###
@@ -462,7 +741,7 @@ x + y
 '['(vecx, "whiA");
 # }}}
 
-# {{{ Scope and Environments
+# {{{ Scope and Environments (scope)
 ##############################
 ### Scope and Environments ###
 ##############################
@@ -489,32 +768,24 @@ ttg.mars <- funcgen(3.72);  # function
 ttg.earth(10);
 ttg.mars(10);
 
-curve(ttg.mars, 0, 10, col = "red", lwd = 3,
-xlab = "Height", ylab = "Time to ground")
-curve(ttg.earth, 0, 10, add = TRUE, col = "blue", lwd = 3)
+environment(ttg.earth);
+environment(ttg.mars);
 
-mars <- environment(ttg.mars);
-earth <- environment(ttg.earth);
-parent.env(mars);
-parent.env(earth);
+ls(envir = environment(ttg.mars));
+get("g", envir = environment(ttg.mars));
+get("g", envir = environment(ttg.earth));
+
+parent.env(environment(ttg.earth));
+parent.env(environment(ttg.mars));
 environment(funcgen);
 
-g <- 20;
-get("g");
-get("g", envir = .GlobalEnv);
+# Current session environment is available in .GlobalEnv
 
-get("g", envir = earth);
-get("g", envir = mars);
+# The effective environment is a nesting of environments.
 
-ls(envir = earth);
-rm("g", envir = earth);
-ls(envir = earth);
-curve(ttg.earth, 0, 10, add = TRUE, col = "darkolivegreen3", lwd = 3)
-assign("g", 9.8, envir = earth);
-ls(envir = earth);
-
-# The effective environment is almost always a nesting of
-# environments.
+parent.env(.GlobalEnv);
+parent.env(parent.env(.GlobalEnv));
+parent.env(parent.env(parent.env(.GlobalEnv)));
 
 #################################
 ### The search path. search() ###
@@ -524,14 +795,14 @@ time2ground(10);
 
 search();
 
-attach(earth);
+attach(environment(ttg.earth));
 
 search();
 
 time2ground(10);
 # }}}
 
-# {{{ Querying the nature of objects
+# {{{ Querying the nature of objects (queryingType)
 ######################################
 ### Querying the nature of objects ###
 ######################################
@@ -566,11 +837,11 @@ class(y);
 # str() is useful to display the internal structure of R objects.
 # Especially useful for data frames and more complex objects.
 
-hx <- hist(rnorm(300), plot = F);
-str(hx)
+str(vnz.df);
+
 # }}}
 
-# {{{ Packages
+# {{{ Packages (packages)
 ################
 ### Packages ###
 ################
@@ -595,12 +866,12 @@ str(hx)
 # bioinfomatics. Bioconductor has its own installer.
 
 ### Installing edgeR ###
-# We don't need to do this because edgeR is already installed
-# on these machines by computing.
 
-#   if (!requireNamespace("BiocManager", quietly = TRUE))
-#       install.packages("BiocManager")
-#   BiocManager::install("edgeR", version = "3.8")
+# Check before doing the below.
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("edgeR")
 
 #################################
 ### Using packages. library() ###
@@ -632,7 +903,7 @@ detach("package:edgeR", unload = TRUE)
 # package.
 # }}}
 
-# {{{ Reading documentation
+# {{{ Reading documentation (documentation)
 #############################
 ### Reading documentation ###
 #############################
@@ -646,8 +917,8 @@ help("seq")
 help("plot")
 
 
-# help.search() shows all the packages which
-# have anything to do with "sequence".
+# Below shows all the packages which have anything to do
+# with "sequence".
 
 help.search("sequence")
 
@@ -705,7 +976,7 @@ help("DGEGLM-class")
 help("DGEGLM")
 # }}}
 
-# {{{ Recycling
+# {{{ Recycling (recycling)
 ######################################
 ### Recycling in Vector operations ###
 ######################################
@@ -715,22 +986,20 @@ help("DGEGLM")
 ### Do the following yourself ###
 #################################
 
-# 1. Store the sequence from 1 to 5 in vector x.
-# 2. Store the sequence from 21 to 25 in vector y.
+# 1. Assign the sequence from 1 to 5 to x.
+# 2. Assign the sequence 21 to 25 to y.
 # 3. Examine the result of y * x.
 
 #############################################################
   
-# 4. Store the sequence from 21 to 30 in vector z.
+# 4. Assign the sequence 21 to 30 to z.
 # 5. Confirm the lengths of x and z using the function length().
 # 6. Examine the result of z * x.
 
 #############################################################
   
-# 7. Store the sequence from 1 to 7 in vector u.
+# 7. Assign the sequence from 1 to 7 to u.
 # 8. Examine the result of z * u.
-
-
 
 #############################################################
 #############################################################
@@ -738,34 +1007,9 @@ help("DGEGLM")
 # shorter vector get recycled.
 # If the longer vector is not an integer multiple of the shorter vector
 # you get a warning but the operation is valid and successful.
-#############################
-### Some Common Functions ###
-#############################
-
-# c(): concatenate.
-
-x <- c(2.17, 3.14, 13, 29, 48.356);
-y <- c(200,300);
-z <- c(x, y);
-z;
-
-# length(): Return the length of the named object.
-length(x);
-length(y);
-
-# min() and max(): Minimum / Maximum element of an object.
-min(x);
-min(y);
-
-# mean() and median():
-mean(x);
-median(y);
-
-# summary(): Some key statistics about an object.
-summary(y);
 # }}}
 
-# {{{ Rounding etc.
+# {{{ Rounding etc. (rounding)
 #####################
 ### Rounding etc. ###
 #####################
@@ -787,7 +1031,7 @@ floor(pi)
 ceiling(pi)
 # }}}
 
-# {{{ paste(), paste0()
+# {{{ paste etc. (paste).
 ############################
 ### paste() and paste0() ###
 ############################
@@ -801,27 +1045,36 @@ paste(x);
 paste(y);   # A character vector.
 typeof(paste(y));
 
+str_c(x);
+str_c(y);
+
 paste(x, y);
+str_c(x, y, sep = " ")
+
 paste0(x, y);  # No separator.
+str_c(x, y)
 
 y <- seq(1,5);
 paste0(x, y);  # y is shorter than x, hence recycling.
+str_c(x, y)
 
-z <- c("-rep1", "-rep2");
+z <- c("-K1", "-K2");
 paste0(x, y, z); # z is also recycled as needed.
+str_c(x, y, z);
 
 
 # You can "collapse" the resulting vector to a single
 # string.
 
 paste0(x, y, collapse = " ");
+str_c(x, y, collapse = " ");
 
 #################################
 ### Do the following yourself ###
 #################################
 
-mtl <- LETTERS[1:8]
-mtn <- seq(1,12)
+mtl <- LETTERS[1:8] # microtitre letters
+mtn <- seq(1,12)    # microtitre numbers
 
 # Using rep() and paste0() and the two vectors made
 # above, make a vector of all the addresses on a 96
@@ -833,7 +1086,7 @@ mtn <- seq(1,12)
 # and will also use the named argument "each".
 # }}}
 
-# {{{ Lists
+# {{{ Lists (lists)
 #############
 ### Lists ###
 #############
@@ -896,7 +1149,7 @@ class(unlist(k))
 
 # 2. Make a vector of integers from 10 to 20.
 
-# 3. Make a list li, with two named elements, alpha
+# 3. Make a list named li, with two named elements, alpha
 # containing the vector made in step 1 above and, beta
 # containing the vector made in step 2 above.
 
@@ -907,7 +1160,7 @@ class(unlist(k))
 # alpha member of li.
 # }}}
 
-# {{{ Attributes
+# {{{ Attributes (attributes)
 ##################
 ### Attributes ###
 ##################
@@ -954,7 +1207,7 @@ attr(x, "purpose")
 attributes(x);
 # }}}
 
-# {{{ Data frames and tibbles
+# {{{ Data frames and tibbles (dataframes)
 ###############################
 ### Data Frames and tibbles ###
 ###############################
@@ -1004,7 +1257,7 @@ class(hwt)
 # excel spreadsheet.
 
 nht <- read_excel("data/noheader.xlsx", sheet = "hyphal_width")
-nht
+nht # Really bad. You have lost the first row.
 
 nht <- read_excel("data/noheader.xlsx", sheet = "hyphal_width",
                  col_names = FALSE);
@@ -1075,14 +1328,12 @@ colnames(nht) <- c("hw", "strain", "microscope");
 # 3. Try the command class(expt).
 # }}}
 
-# {{{ Factors
+# {{{ Factors (factors)
 ###############
 ### Factors ###
 ###############
 
-
 # Think of them as categorical variables.
-
 
 numbers <- c(1.200261, 1.479827, 1.482392, 1.716793, 1.518791, 1.000030,
              1.933209, 1.841415, 1.315890, 1.849663);
@@ -1139,7 +1390,7 @@ levels(category)
 # read_csv() has an option (col_types) to let you specify
 # column types when you are reading data in.
 
-mutate(hwt, strain = factor(strain),
+hwt <- mutate(hwt, strain = factor(strain),
        microscope = factor(microscope))
 
 # group_by() and summarise() by piping
@@ -1154,7 +1405,7 @@ bygr <- group_by(hwt, strain);
 summarise(bygr, grmean = mean(hw));
 # }}}
 
-# {{{ Statistical models
+# {{{ Statistical models (statmods)
 ###############################
 ### Statistical Models in R ###
 ###############################
@@ -1176,42 +1427,6 @@ pnorm(35, mean = 15, sd = 5, lower.tail = FALSE);  # P(X > 35)
 
 dnorm(seq(1,10), mean = 5, sd = 1)
 
-
-###### Begin ignore ######
-
-# Below is to generate plots for explaining. We will see
-# some of these functions later we cover plotting. For now,
-# simply ignore.
-
-par(mfrow = c(2,1), bg = "lightgrey");
-bar <- 15; xsd <- 3;
-ddn <- function(x) {
-  return(dnorm(x, mean = bar, sd = xsd))
-}
-cfrom <- bar - 4 * xsd;
-cto <- bar + 4 * xsd;
-curve(ddn, from = cfrom , to = cto, add = FALSE, lwd = 3,
-      main = paste("Mean:", bar,  "and SD:", xsd),
-      ylab = "Density",
-      xlab = "x"); grid(col = "black");
-ppn <- function(x) {
-  return(pnorm(x, mean = bar, sd = xsd, lower.tail = FALSE))
-}
-ppnlt <- function(x) {
-  return(pnorm(x, mean = bar, sd = xsd, lower.tail = TRUE))
-}
-curve(ppn, from = cfrom , to = cto, add = FALSE, lwd = 3,
-      col = "darkred", ylab = "Probability", xlab = "x")
-curve(ppnlt, from = cfrom , to = cto, add = TRUE, lwd = 3,
-      col = "darkgreen")
-grid(col = "black")
-legend(cfrom, 0.9, "lower.tail FALSE", fill = "darkred", bty = "n")
-legend(cfrom, 0.8, "P(X > x)", bty = "n")
-legend(cto, 0.9, "lower.tail TRUE", fill = "darkgreen", bty = "n", xjust = 1)
-legend(cto, 0.8, "P(X <= x)", bty = "n", xjust = 1)
-
-###### End ignore ######
-
 #################################
 ### Do the following yourself ###
 #################################
@@ -1225,18 +1440,18 @@ legend(cto, 0.8, "P(X <= x)", bty = "n", xjust = 1)
 
 # 3. Find the minimum, maximum, mean and median of x.
 
-# 4. The function for standard deviation is sd. Use this
+# 4. The function for standard deviation is sd(). Use this
 # function to find the standard deviation of x. Should
 # be approximately 3.
 
-# 5. The function for square root is sqrt. Standard
+# 5. The function for square root is sqrt(). Standard
 # error of the mean (SEM) is calculated as the SD
 # divided by the square root of the sample size. Without
 # using any variable other than x, find the SEM. Should
 # be approximately 0.06.
 # }}}
 
-# {{{ Truth in R
+# {{{ Truth in R (logical)
 ##################
 ### Truth in R ###
 ##################
@@ -1259,7 +1474,6 @@ x[g];
 #############################################################
 
 ### any() and all() ###
-
 
 any(g);
 all(g);
@@ -1292,7 +1506,6 @@ y <- x;
 x == y;
 identical(x,y);
 all.equal(x,y);
-
 
 # Divide x by 39.473 then multiply the result by 39.473
 z <- x / 39.473
@@ -1345,9 +1558,6 @@ abs(x - y)
 
 # 6. What is the output of isTRUE(all.equal(m,n))?
 
-# 7. What is the magnitude of the difference between
-# m and n?
-
 # Refer to the documentation of all.equal() to find out
 # the default value of the tolerance argument.
 
@@ -1357,10 +1567,35 @@ abs(x - y)
 # Use isTRUE(all.equal()), not ==, when comparing floating
 # point numbers.
 
-# mean(abs(x-y))/mean(abs(x))
 # }}}
 
-# {{{ Subsetting data frames
+# {{{ VAT calculation (vatcalc)
+
+# R provides "if" for branching in functions.
+
+x <- 42L;
+if(x == 42) {
+  cat("\nWelcome to the intergalactic warpcraft!\n");
+} else {
+  cat("\nGrow your own wings!!\n");
+}
+
+
+
+vat <- function(x = 100, add = TRUE, rate = 20) {
+  if(add) {
+    vatplus <- x + x * (rate / 100);
+    return(vatplus);
+  } else {
+    vatminus = x / (1 + (rate / 100));
+    return(vatminus);
+  }
+}
+
+
+# }}}
+
+# {{{ Subsetting data frames (subsetting)
 ##############################
 ### Subsetting data frames ###
 ##############################
@@ -1395,7 +1630,7 @@ df["E",]
 df[, "x"]
 df[, 1]
 
-### Rows and columns may be specified as vectors.
+### Multiple rows and columns are specified as vectors.
 
 rows <- seq(17,24);
 coln <- c(1);
@@ -1444,7 +1679,7 @@ slice(hwt, ronum);
 hwt[58, "strain"]
 # }}}
 
-# {{{ NA, NaN, Inf, NULL
+# {{{ NA, NaN, Inf, NULL (null)
 ##########################
 ### NA, NaN, Inf, NULL ###
 ##########################
@@ -1458,7 +1693,7 @@ sd(x);
 
 ####################################################
 
-books <- c("Animal Rights", "A Theory of Justice",
+books <- c("Practical Ethics", "A Theory of Justice",
            "The Wealth of Nations", "What Money Can't Buy");
 
 authors <- c("Peter Singer", "John Rawls", NA,
@@ -1532,7 +1767,7 @@ is.null(0/0)
 is.null(authors[3]);
 # }}}
 
-# {{{ Matrices
+# {{{ Matrices (matrices)
 ################
 ### Matrices ###
 ################
@@ -1573,7 +1808,7 @@ attributes(m);
 str(m);
 # }}}
 
-# {{{ Subsetting matrices
+# {{{ Subsetting matrices (subsetmat)
 ###########################
 ### Subsetting matrices ###
 ###########################
@@ -1647,7 +1882,7 @@ attributes(s);
 # 8. Examine wed.
 # }}}
 
-# {{{ Arrays
+# {{{ Arrays (arrays)
 ##############
 ### Arrays ###
 ##############
@@ -1695,7 +1930,9 @@ a[,,6];     # matrix
 class(a[1,2,5]);
 class(a[2,2,]);
 class(a[,,6]);    # matrix
+# }}}
 
+# {{{ Calculating a new column (calcnewcol)
 ################################
 ### Calculating a new column ###
 ################################
@@ -1761,12 +1998,15 @@ temptib <- read_csv("data/products.csv")
 temptib
 left_join(tib, temptib, by = "gene")
 
-# Unwanted column in temptib
-
+# Simulating one unwanted column in temptib.
 temptib <- mutate(temptib, unwanted = rep("unwanted",
                   nrow(temptib)));
 temptib
+
+# If we have unwanted columns in temptib
+# without column selection
 left_join(tib, temptib, by = "gene")
+# with column selection
 left_join(tib, select(temptib, gene, product),
                   by = "gene")
 
@@ -1782,7 +2022,7 @@ tib <- tib %>% left_join(select(temptib, gene, product),
 tib;
 # }}}
 
-# {{{ Sorting
+# {{{ Sorting (sorting)
 ###########################
 ### Sorting a data frame ###
 ############################
@@ -1882,7 +2122,7 @@ stib <- arrange(tib, desc(abs(logFC)));
 stib
 # }}}
 
-# {{{ Conditional subsetting
+# {{{ Conditional subsetting (subsetcond)
 ##############################
 ### Conditional subsetting ###
 ##############################
@@ -1912,7 +2152,7 @@ nrow(up1c7)
 head(up1c7)
 # }}}
 
-# {{{ which() and subset()
+# {{{ which and subset (which_subset)
 ############################
 ### which() and subset() ###
 ############################
@@ -2025,7 +2265,7 @@ hiup2 <- filter(stib, logFC >= 1 & control >= 7
 hiup2
 # }}}
 
-# {{{ Regular Expressions
+# {{{ Regular Expressions (regex)
 ###########################
 ### Regular Expressions ###
 ###########################
@@ -2153,7 +2393,7 @@ head(notHypoth2.5)
 # gsub()
 # }}}
 
-# {{{ apply() et al.
+# {{{ apply et al. (apply)
 ######################
 ### apply() et al. ###
 ######################
@@ -2201,7 +2441,7 @@ cano = unname(sapply(strepgenes[[1]], canoname)));
 # We saw this when doing Factors.
 # }}}
 
-# {{{ Attaching a data frame
+# {{{ Attaching a data frame (attach)
 ##############################
 ### Attaching a data frame ###
 ##############################
@@ -2233,7 +2473,7 @@ detach(df)
 search()
 # }}}
 
-# {{{ Clearing your work space
+# {{{ Clearing your work space (rm)
 ################################
 ### Clearing your work space ###
 ################################
@@ -2276,7 +2516,7 @@ z <- x - y;
 z;
 # }}}
 
-# {{{ RNA-Seq
+# {{{ RNA-Seq (rnaseq)
 ###############
 ### RNA-Seq ###
 ###############
@@ -2296,197 +2536,155 @@ z;
 
 ### The experiment ###
 
-# Hfq is a small RNA binding protein originally
-# identified as the host factor essential for the
-# replication of the bacteriophage Q-beta. Two biological
-# replicates each of the wild type and a Hfq deletion
-# mutant of a Pseudomonas strain STR25 were subjected to
-# RNA-Seq analysis.
+# Antibiotic producing Streptomycetes often encode for more
+# than one antibiotic but only one is expressed. Often, if
+# this one is deleted another gene cluster will become
+# activated and the organism will produce a different
+# antibiotic.
+ 
+# In this experiment we want to find out what genes are
+# activated when the gene cluster producing the major
+# antibiotic is deleted.
+ 
+# dClus is the strain in which the cluster has been deleted.
+# WT is the wild type strain.
 
-# Reads from the sequencer (in fastq files) were aligned
-# to the Pseudomonas genomic sequence using bowtie2 to
-# get SAM files.
+# The reference genome is that of the wild type strain.
 
-# bowtie2 --phred33 -x bwt2ndx/STR25 \
-# -I 100 -X 400 -p 12 --no-unal \
-# -1 rs1-R1.fastq -2 rs1-R2.fastq -S sam/rs1.sam \
-# 2> "bowtie2Reports/rs1.bwt2repo"
- 
-# Then samtools was used to convert these SAM files to BAM files.
- 
-# samtools view -b -o bam/rs1.bam --threads 8 sam/rs1.sam
- 
-# Then, in R, the function featureCounts() of the
-# Rsubread package was used to get the counts of reads
-# overlapping each of the 6003 genes. These counts have
-# been saved in the files
- 
-# featureCounts/rs1
-# featureCounts/rs2
-# featureCounts/rs3
-# featureCounts/rs4
+## Subread ##
 
-# It is also possible to do the above using samtools
-# functions bedcov and depth. Another possibility is to
-# use tools in the Rsubread package to carry out the
-# alignment as well as feature counting. Anyhow, we have
-# to arrive at counts of reads covering each gene.
- 
-# This is where we will pick up this analysis now and
-# take it to completion ending in a table of log fold
-# changes for all the genes in the genome. We will use
-# functions provided in BioConductor package edgeR for
-# doing this.
- 
+# subread-buildindex make index for the reference genome.
+# subread-align to align reads in fastq files to the index.
+# featureCounts to get a table of number of reads mapping to
+# each gene in the reference genome.
+
+# Below are the columns in featcounts.tsv.
+
+# 0	Geneid
+# 1	Chr
+# 2	Start
+# 3	End
+# 4	Strand
+# 5	Length
+# 6	dClus.d5.1
+# 7	dClus.d5.2
+# 8	dClus.d5.3
+# 9	dClus.d2.1
+# 10	dClus.d2.2
+# 11	dClus.d2.3
+# 12	WT.d5.1
+# 13	WT.d5.2
+# 14	WT.d5.3
+# 15	WT.d2.1
+# 16	WT.d2.2
+# 17	WT.d2.3
+
+
 ### Analysis in R ###
 
-rm(list = ls());
-library("edgeR");
+# Read in the counts.
+rdf <- read.delim("data/featcounts.tsv", row.names = "Geneid");
+gene.lengths <- rdf[, "Length"];
+names(gene.lengths) <- rownames(rdf);
 
-fcpath = "data/featureCounts";
-list.files(path = fcpath);
-files <- list.files(path = fcpath);
-files
-
-
-# use of rep() to make groups.
-temp <- c("wt", "hfq");
-groups <- rep(temp, each = 2);
-
-fg <- data.frame(files = files, group = groups);
-fg;
-
-# Both columns of fg are factors. So we can call levels() on them.
-levels(fg$files);
-levels(fg$group);
-
-# labels for each sample.
-lbs <- paste(groups, c("A", "B"), sep = "");
-lbs
-# Examine the values of fg and lbs at this stage
-# to make sure they are as you want them to be.
-
-# Now we are ready to read the data from the files into R.
-
-d <- readDGE(fg, path = fcpath, labels = lbs, header = FALSE);
-
-### Examine d here. What class does d belong to? ###
-d
-class(d)
-names(d);
-
-# Saving individual objects
-saveRDS(d, file = "after_readDGE.rds");
-# d <- readRDS("after_readDGE.rds");
-
-# Saving a list of objects.
-save(files, groups, fg, lbs, d, file = "after_readDGE")
-# load("after_readDGE");
-
-# Saving entire workspace.
-save.image(file = "after_readDGE.image")
-# load("after_readDGE.image");
-# In a new session of R, you will need to load the
-# required libraries again.
-
-### Add gene length information.
-
-gene.lens <- read.csv(file = "data/str25.genelengths",
-                      stringsAsFactors = F);
-
-d$genes <- gene.lens;
-
-all.equal(rownames(d$counts), d$genes$gene)
+# Delete
+st.deleted <- seq(6650, 6690);
+st.deleted <- str_c("Stri_", st.deleted);
+rdf[st.deleted, ];
 
 
-### Normalisation factors.
 
-d <- calcNormFactors(d);
+x <- rdf[, 6:ncol(rdf)];
 
-# Drawing of the design matrix
-#            wt        hfq
-# wtA         1         0
-# wtB         1         0
-# hfqA        0         1
-# hfqB        0         1
+# Reorder the columns so that replicates are next to each other.
+cn <- colnames(x);
+socn <- sort(cn);
+socn;
+x <- x[, socn];
 
-# Make the design matrix. Alternative 1.
-dm = matrix(c(1,1,0,0,0,0,1,1), nrow = 4);
-rownames(dm) = c("wtA", "wtB", "hfqA", "hfqB");
-colnames(dm) = c("wt", "hfq");
-dm
+# Groups
+samp <- c("d2", "d5", "w2", "w5"); # needed later to make design.
+group <- factor(rep(samp, each = 3))
 
-# Make the design matrix. Alternative 2.
-des <- model.matrix(~0+fg$group)
-des
-rownames(des) <- lbs;
-colnames(des) <- levels(fg$group);
-des
+# DGEList
+y <- DGEList(counts = x, group = group);
 
+# Filter out low counts. Then I also filter out
+# all the RNAs. 
+keep <- filterByExpr(y)
+keep[str_detect(names(keep), "RNA")] <- F;
 
-names(d);
-d <- estimateDisp(d, design = des);
-names(d)
+table(keep);
+keep[!keep];
 
+# help(subsetting, package = edger) to understand the line below.
+y <- y[keep,,keep.lib.sizes=FALSE]
+
+# Read products from 2 column file into data frame products.
+# Add gene lengths and products to y$genes dataframe.
+products <- read.delim("data/gene_products.tsv", stringsAsFactor = F,
+header = T, row.names = 1);
+
+y$genes <- data.frame(Length = gene.lengths[rownames(y)],
+Product = products[rownames(y), "Product"]);
+
+# Normalisation factors
+y <- calcNormFactors(y)
 
 #################################
 ### Do the following yourself ###
 #################################
 
-# 1. Examine the output of methods(class = class(d))
+# 1. Examine the output of methods(class = class(y))
 
 # 2. Amongst a lot of other things, the above will show
-# you a method named rpkm().
+# you methods named rpkm() and rpkmByGroup()
 
-# 3. Have a look at the help for rpkm().
-
-# 4. Now use rpkm() to get the RPKMs and store them in
-# wt.hfq.rpkm.
-
-# 5.  Examine the top of wt.hfq.rpkm using head().
-
-# 6. write.csv(wt.hfq.rpkm, file =
-# "../wt_hfq_RPKM.csv")
+# 4. Now use rpkmByGroup() to get the RPKMs and write them
+# out to a tsv file. You will need as_tibble() here.
 
 
 ###############################
 ### Differential Expression ###
 ###############################
 
-# The object d made above has all the data required to
-# determine which genes are differentially expressed
-# between the WT and Hfq, to what extent and in which
-# direction.
+# Model matrix and design.
+design <- model.matrix(~0+group, data = y$samples)
+colnames(design) <- samp;
 
-# Use of exactTest() and topTags()
+# Estimate dispersion and then get fit (glmQLFit()).
+y <- estimateDisp(y,design)
+fit <- glmQLFit(y, design)
 
-et <- exactTest(d, pair = c("wt", "hfq"));
+# Contrasts we are interested in (makeContrasts()).
+st.contrasts = makeContrasts(
+day2=d2-w2,
+day5=d5-w5,
+levels = colnames(design)
+);
 
-byFC <- topTags(et, sort.by = "logFC");
-byFC;
+# Test (glmQLFTest());
+qlf <- glmQLFTest(fit, contrast = st.contrasts)
 
-unsorted_lfc <- topTags(et, sort.by = "none", n = nrow(d));
-saveRDS(unsorted_lfc$table, "unsorted_lfc.rds")
+# Toptags (topTags) and output.
+outlist = list();
+for(rdc in colnames(st.contrasts)) {
+qlf <- glmQLFTest(fit, contrast = st.contrasts[, rdc])
+qtt = topTags(qlf, n = nrow(y), sort.by = "PValue")
+outlist[[rdc]] <- qtt$table
+}
 
-byPV <- topTags(et, n = nrow(d), sort.by = "PValue");
-write.csv(byPV, file = "../wt_hfq_DE.csv", row.names = F);
+names(outlist)
 
-# head(byPV); # Fails.
+outdir <- c("out");
+for(cname in names(outlist)) {
+odf <- outlist[[cname]];
+ofn <- file.path(outdir, str_c(cname, "_DGE.txt"));
+otib <- as_tibble(odf, rownames = "Gene");
+write_tsv(otib, ofn, quote_escape = "none");
+}
 
-class(byPV);
-names(byPV);
 
-class(byPV$table);
-
-head(byPV$table);
-
-de.table <- byPV$table
-
-# Hfq is SS_0520 and it has been deleted in the strain
-# we are referring to as hfq. So it should be
-# significantly down-regulated.
-
-de.table["SS_0520",];
 
 
 # Collecting the RPKMs of the most highly changed genes
@@ -2556,7 +2754,7 @@ log2lin
 # fold change.
 # }}}
 
-# {{{ Plotting devices
+# {{{ Plotting devices (devices)
 ########################
 ### Plotting devices ###
 ########################
@@ -2621,7 +2819,7 @@ log2lin
 # 10. Use graphics.off() to close all plotting devices.
 # }}}
 
-# {{{ Base graphics
+# {{{ Base graphics (graphics)
 #####################
 ### Base graphics ###
 #####################
@@ -2705,7 +2903,7 @@ plot(x, main = "This time in red")
 #    well so that they get rendered in dark green.
 # }}}
 
-# {{{ Specifying colours
+# {{{ Specifying colours (colours)
 ##########################
 ### Specifying colours ###
 ##########################
@@ -2784,15 +2982,15 @@ crpfun <- colorRampPalette(c(rgb(0,0,1,1), rgb(1,0,0,1)),
 crpfun <- colorRampPalette(c("blue", "red"),
                            alpha = TRUE);
 
-
 crpfun(19)
-ht <- runif(19, min = 5, max = 20)
+ht <- rep(1, 19);
 barplot(ht, col = crpfun(19))
 
 # colorRampPalette(c(rgb(0,0,1,1), rgb(1,0,0,1)), alpha = TRUE)(19)
+
 # }}}
 
-# {{{ ggplot2
+# {{{ ggplot2 (ggplot2)
 ###############
 ### ggplot2 ###
 ###############
@@ -2838,50 +3036,13 @@ barplot(ht, col = crpfun(19))
 
 # Control the overall appearance of a plot.
 
-
 rm(list = ls());
 df <- read.csv("data/tfaG.csv");
 head(df);
 
-ggplot(df) +
-  geom_point(aes(hour, wt), colour = "red") +
-  geom_point(aes(hour, tfaG), colour = "blue")
-
-p1 <- ggplot(df)
-p1 + geom_point(aes(hour, wt), colour = "red")
-p1 + geom_point(aes(hour, tfaG), colour = "blue")
-
-p1 + geom_point(aes(hour, wt), colour = "red") + 
-  geom_point(aes(hour, tfaG), colour = "blue")
-
-p1 + geom_path(aes(hour, wt), colour = "red") + 
-  geom_path(aes(hour, tfaG), colour = "blue")
-
-
-
-p2 <- p1 +
-geom_path(aes(hour, wt), colour = "darkred", size = 1.2) +
-geom_path(aes(hour, tfaG), colour = "blue", size = 1.2) +
-geom_point(aes(hour, wt), colour = "darkred", size = 3) +
-geom_point(aes(hour, tfaG), colour = "blue", size = 3) +
-xlab("Hours of growth") +
-ylab("Log2 expression") +
-ggtitle("Expression of spoF in wt and tfaG deletion strains") +
-theme_bw() +
-theme(plot.title = element_text(size = 24, face = "bold",
-                                hjust = 0.5)) +
-theme(axis.title = element_text(size = 15, face = "bold",
-                                vjust = 0.5)) +
-theme(axis.text = element_text(size = 12, face = "plain",
-                                vjust = 0.5))
-
-graphics.off()
-p2
-
-
-# The above is not the best way to organise your data for
+# This is not the best way to organise your data for
 # ggplot2. If you have a dataframe like.
-# 
+
 #   hour       wt     tfaG
 # 1    1 2.597158 2.830137
 # 2    2 2.636187 2.800135
@@ -2906,17 +3067,14 @@ p2
 # column no matter how many categories those values
 # belong to. The categories can be specified in other
 # columns. Similarly for the values intended for the
-# y-axis.
-
+# y-axis. This is often referred to as the "tidy" data
+# format.
 
 # Below is one way of getting from df to gdf.
-#
-# There may be functions in available packages to do
-# this.
 
 gdf <- data.frame(hour = rep(df$hour, 2),
-      strain = c(rep(colnames(df)[2], 60),
-      rep(colnames(df)[3], 60)),
+      strain = c(rep(colnames(df)[2], nrow(df)),
+      rep(colnames(df)[3], nrow(df))),
       logexpr = c(df$wt, df$tfaG)
 )
 head(gdf)
@@ -2924,80 +3082,41 @@ class(gdf$strain)
 
 ### Plotting begins ###
 
-ggplot(gdf, aes(hour, logexpr, colour = strain)) +
+p1 <- ggplot(gdf, aes(x = hour, y = logexpr, colour = strain)) +
   geom_point() +
-  geom_path() +
-  theme_bw()
+  geom_path()
 
+# Axis labels xlab(), ylab()
+# expression(); help("plotmath");
 
-ggplot(gdf, aes(hour, logexpr, colour = strain)) +
-  geom_point(size = 3) +
-  geom_path(size = 1.2) +
-  theme_bw()
-
-
-### We will save the plot objects as we build them.
-# gdfcols <- c("#129628", "#961254");
-p1 <- ggplot(gdf, aes(hour, logexpr, colour = strain,
-                      shape = strain))
-p2 <- p1 + geom_point(size = 3) +
-  geom_path(size = 1.2)
-p2
-# scale_colour_manual(values = c(gdfcols))
-
-
-# Axis labels and grid lines.
-
-p2 +
-  scale_x_continuous(name = "Hours of growth") +
-  scale_y_continuous(name = "Log2 expression")
-
-xbr <- seq(0, 60, by = 5)
-p3 <- p2 +
-  scale_y_continuous(name = "Log2 expression") +
-  scale_x_continuous(name = "Duration of culture",
-                     breaks = xbr,
-                     labels = paste0(xbr, "h"))
-
-p3
-
-
-# Legend
-
-# p4 <- p3 + scale_colour_discrete(name = "spoF expression in",
-#                            labels = c("tfaG deletion strain",
-#                                      "Wild type strain"))
-
-# p4
-
-
-# Our colours
-
-# p3 + labs(colour = "Strain", shape = "Strain")
-
-gdfcols <- c("#129628", "#961254");
-# gdfcols <- c("darkblue", "red");
-p5 <- p3 + scale_colour_manual(name = "Strain id",
-   values = gdfcols,
-   labels = c("tfaG deletion strain",
-   "M600")) +
-scale_shape_discrete(name = "Strain id",
-   labels = c("tfaG deletion strain",
-   "M600"))
-
-# p3 + labs(colour = "Strain", shape = "Strain")
-
-
-p5
-
-# Main title
-
-p6 <- p5 + 
-ggtitle("Expression of SpoF in M600 and tfaG deletion strains\nover 60 hours of growth in shaken flask");
-p6
+l2e <- expression(log[2]~Expression); # help("plotmath");
+p1 + xlab("Hours of growth") + ylab(l2e);
 
 # Theme
-p7 <- p6 +
+p1 + theme_bw()
+
+p2 <- ggplot(gdf, aes(hour, logexpr, colour = strain,
+              shape = strain)) +
+              geom_point(size = 3) +
+              geom_path(size = 1.2)
+
+
+# Plotting colours and legend
+gdfcols <- c("#129628", "#961254");
+p3 <- p2 + scale_colour_manual(name = "Strain id",
+values = c(gdfcols),
+aesthetics = c("colour", "fill"),
+labels = c("tfaG deletion strain", "M600")) +
+scale_shape_discrete(name = "Strain id",
+labels = c("tfaG deletion strain",
+"M600")) + theme_bw() +
+xlab("Hours of growth") + ylab(l2e);
+
+# Main title
+p4 <- p3 + ggtitle("Expression of SpoF in M600 and tfaG deletion strains\nover 60 hours of growth in shaken flask");
+
+# Theme
+p5 <- p4 +
   theme_bw() +
   theme(plot.title = element_text(size = 24, face = "bold",
                                   hjust = 0.5)) +
@@ -3013,9 +3132,11 @@ p7 <- p6 +
   theme(plot.margin = margin(1, 1, 1, 1, "cm")) +
   theme(panel.grid = element_blank())
 
-p7
-ggsave("../expression.pdf", p7)
-ggsave("../expression.png", p7)
+p5
+ggsave("../expression.pdf", p5)
+ggsave("../expression.png", p5)
+
+## p + xlim(5, 20) + ylim(0, 50)
 
 #################################
 ### Do the following yourself ###
@@ -3033,60 +3154,16 @@ ggsave("../expression.png", p7)
 # Convert logFC to linear fold change and plot as above.
 # }}}
 
-# {{{ Spore lengths
+# {{{ Spore lengths (sporelens)
 #####################
 ### Spore lengths ###
 #####################
 
-# Spore lengths were measured in 5 mutants (L, S, T, U,
-# V) and the WT of a species of Streptomyces grown in 2
-# or 3 different growth media. Now we wish to know what
-# effect do the mutations and the growth media have on
-# spore lengths.
+sldf <- read.csv("data/sporelen.csv", header = T)
 
-# In the directory named spores there are files named
-# L1, L2, S1, S2, S3, T1, T2, U1, U2, U3, V1, V2, V3,
-# WT1, WT2. The beginning letters of the filename
-# represents the strain and the following digit
-# represents the growth medium.
-#
-# All of these files contain just one column containing
-# spore lengths.
-
-# Please do the following with me.
-
-list.files();
-list.dirs();
-list.files(path = "data/spores");
-list.files(path = "data/spores", full.names = TRUE);
-basename("data/spores/WT1");
-
-alist <- list(); # An empty list;
-
-# for loop below.
-for(file in list.files(path = "data/spores", full.names = T)) {
-  tf <- read.delim(file, col.names = c("spore.length"), header = F);
-  id.lst <- basename(file);
-  alist[[id.lst]] <- tf$spore.length;
-}
-
-names(alist);
-head(alist$L1)
-
-# Use of stack() to get data frame of spore lengths and a factor.
-sldf <- stack(alist);
-head(sldf);
-# stack() used the column names "values" and "ind" by default.
-
-# Change column names.
-colnames(sldf) <- c("spore.len", "strain");
-head(sldf);
-class(sldf$strain);
-levels(sldf$strain);
-
-# At this time the "strain" column contains both the strain as
-# well as the growth medium information. Below we separate the
-# two into two different factors.
+# Actually the "strain" column has two pieces of information
+# in it; strain and medium. We need to separate these out
+# into two factors.
 
 # Use of regular expressions below.
 str <- sub("\\d+$", "", sldf$strain, perl = TRUE);
@@ -3195,7 +3272,7 @@ ggplot(cdf, aes(x = strain, y = count)) +
   geom_col()
 # }}}
 
-# {{{ Histograms
+# {{{ Histograms (histograms)
 ##################
 ### Histograms ###
 ##################
@@ -3329,30 +3406,19 @@ pdffn <- c("../hist1.pdf");
 ggsave(pdffn, h1)
 # }}}
 
-# {{{ Closing comments
+# {{{ Closing comments (close)
 ########################
 ### Closing comments ###
 ########################
-
-# R is not the most convenient environment for all kinds
-# of data processing.
-
-# Some things might be easier to do in a general purpose
-# programming language such as Perl or Python.
-
-# You can find plenty of help and support for Python and
-# Perl around the NRP.
-
-# If you are good at learning on your own, or can find
-# someone to learn with, then consider Julia very seriously.
 
 # Like any other skill, the best way to maintain and
 # advance your R skills is by using it regularly. Try to get
 # together with a friend and use R regularly. You will learn
 # a lot faster if you practice in pairs. 
 
-# Ability to read documentation quickly is more important
-# than you think. Not just in R.
+# Don't try to remember things. That is what computers are
+# for. Develop the skill to read documentation quickly. It
+# more important than you think. Not just in R.
 
 # R manuals webpage.
 # https://cran.r-project.org/manuals.html
@@ -3360,14 +3426,13 @@ ggsave(pdffn, h1)
 # PDF of the Introduction to R book.
 # https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf
 
-# Tidyverse (dplyr, tibbles, ggplot and more) documentation.
-# https://www.tidyverse.org/
-
 # RNA-Seq data analysis using edgeR.
 # https://f1000research.com/articles/5-1438
+
+# Some things are easier done in a general purpose
+# programming language such as Perl or Python.
+
 # }}}
 
 __END__
-perl code/printerAll.pl -outfile ~/temp/itrAll.md itr/itrAll.R
-md2pdf ~/temp/itrAll.md
 
