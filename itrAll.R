@@ -93,7 +93,7 @@ with me. Resist the temptation to charge ahead.
 
     list.files()
     
-    download.file("https://streptomyces.s3-eu-west-1.amazonaws.com/adr.zip",
+    download.file("https://github.com/streptomyces/ThereYouR/raw/master/adr.zip", 
     "adr.zip")
 
     list.files()
