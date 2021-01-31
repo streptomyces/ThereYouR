@@ -44,7 +44,35 @@ Course                       1600  to   1730
 * The focus of this course is on R syntax and
   techniques rather than statistics.
 
-## Getting the scripts and data we will be using
+
+## How will this course work?
+
+- I will introduce methods by talking about them.
+
+- You will run some commands along with me to see the
+  methods in action.
+
+- I will explain the commands and the syntax you have
+  just seen in action.
+
+
+### Sometimes there will be things for you to do on your own.
+
++ These tasks will be described in semi-plain english.
+
++ You will have to think how to achieve them in R using as
+many steps and variables as you need.
+
++ Finally, I will show you how I would have done the tasks.
+There are (almost always) more than one way to do it. 
+Your way of doing things might be different from mine but
+correct nevertheless.
+
+## Things mentioned below will be done during the course
+## Please don't do them before hand. 
+
+#### Getting the scripts and data we
+#### will be using during the course
 
 In Rstudio, use the drop down menu to do
 
@@ -76,41 +104,6 @@ with me. Resist the temptation to charge ahead.
 
     list.files()
 ~~~
-
-## How will this course work?
-
-- I will introduce methods by talking about them.
-
-- You will run some commands along with me to see the
-  methods in action.
-
-- I will explain the commands and the syntax you have
-  just seen in action.
-
-
-### Sometimes there will be things for you to do on your own.
-
-+ These tasks will be described in semi-plain english.
-
-+ You will have to think how to achieve them in R using as
-many steps and variables as you need.
-
-+ Finally, I will show you how I would have done the tasks.
-
-### There is (almost always) more than one way to do it.
-
-+ Your way of doing things might be different from mine but
-correct nevertheless. There isn't one correct way. It is a
-matter of style.
-
-+ RStudio (as a company) is contributing lots of alternative
-functions to those providing similar functionalities in
-converntional R packages. The _tidyverse_ metapackage which
-includes _ggplot2_ and several other widely used packages.
-
-+ For any given task, some find it easier to do it using
- _tidyverse_ while other prefer more conventional functions.
-
 # }}}
 
 # {{{ RStudio (rstudio.md)
