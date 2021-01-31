@@ -41,7 +41,7 @@ Course                       1600  to   1730
 * Who are we.
 
 * The focus of this course is on R syntax and
-  techniques rather than statistics.
+  techniques, not statistics.
 
 
 ## How will this course work?
