@@ -8,12 +8,13 @@
   have reasonably good internet access, webcam, microphone
   and speakers.
 
-* You should have a working installation of R and RStudio
+* Have an up-to-date installation of R and RStudio
   on the computer on which you will be attending this
-  course. Please test this before hand and let us know if
-  you need any help with this.
+  course.
 
-* Point your web browser to the URL shown below.
+* On the first day of the course, as soon as you join the
+  Zoom meeting, point your web browser to the URL shown
+  below.
 
 ### https://streptomyces.github.io/ThereYouR/
 
@@ -1571,18 +1572,20 @@ if(x == 42) {
   cat("\nGrow your own wings!!\n");
 }
 
+#################################
+### Do the following yourself ###
+#################################
 
+# Write a function named vat, which takes three arguments.
 
-vat <- function(x = 100, add = TRUE, rate = 20) {
-  if(add) {
-    vatplus <- x + x * (rate / 100);
-    return(vatplus);
-  } else {
-    vatminus = x / (1 + (rate / 100));
-    return(vatminus);
-  }
-}
+# vat <- function(x = 100, add = TRUE, rate = 20)
 
+# to return the amount before or after VAT depending upon
+# whether the argument add is TRUE or FALSE. x is the amount
+# and rate is the VAT rate in percent.
+
+# All three arguments have default values so that when
+# called without any arguments it should return 120.
 
 # }}}
 
@@ -1655,6 +1658,9 @@ df[2, c("x", "y")]
 
 # 2. Use the vector ronum, made above to get a subset data
 # frame from hwf consisting of only row numbers in ronum
+# Do
+# hwf <- read.csv("data/hw.csv");
+# if you have lost hwf;
 
 # 3. From hwf, extract the strain associated with the
 # hyphal width in row number 58 and store it in a vector
@@ -1685,18 +1691,23 @@ sd(x);
 ####################################################
 
 books <- c("Practical Ethics", "A Theory of Justice",
-           "The Wealth of Nations", "What Money Can't Buy");
+           "The Wealth of Nations", "What Money Can't Buy",
+           "Jonathan Livingston Seagull");
 
 authors <- c("Peter Singer", "John Rawls", NA,
-             "Michael Sandel");
+             "Michael Sandel", "Richard Bach");
 
-sold <- c(0.6, 0.2, NA, 0.7);
+sold <- c(0.6, 0.2, NA, 0.7, 0.7);
 
 ba <- data.frame(books = books, authors = authors, sold = sold);
 
 ba
 
-# What is the type of NA?
+# What is the class of NA?
+
+class(NA);
+class(ba[3, "authors"]);
+class(ba[3, "sold"]);
 
 #################################
 ### Do the following yourself ###
@@ -2095,7 +2106,7 @@ data2 <- data;
 data2[c("SCO0500", "SCO0501", "SCO0502", "SCO0503") , "control"] <- 50;
 
 # Suppose we wish to sort this data frame in decreasing order by
-# the control value but in increasing order by the absolute
+# the control expression but in increasing order by the absolute
 # logFC.
 
 ordvec <- order(-data2$control, abs(data2$logFC))
@@ -2111,6 +2122,11 @@ stib
 
 stib <- arrange(tib, desc(abs(logFC)));
 stib
+
+tib2 <- as_tibble(data2, rownames = "gene");
+stib2 <- arrange(tib2, desc(control), abs(logFC));
+stib2
+
 # }}}
 
 # {{{ Conditional subsetting (subsetcond)
@@ -2141,6 +2157,11 @@ up1c7.tf <- data$logFC >= 1 & data$control >= 7 ;
 up1c7 <- data[up1c7.tf, ];
 nrow(up1c7)
 head(up1c7)
+
+### dplyr style ###
+
+up1c7.tib <- filter(tib, logFC > 1 & control >= 7);
+
 # }}}
 
 # {{{ which and subset (which_subset)
@@ -2163,6 +2184,13 @@ fc1c7 <- subset(data, logFC >= 1 & control >= 7);
 fc1c7;
 fc1c7 <- subset(data, data$logFC >= 1 & data$control >= 7);
 fc1c7;
+
+# filter() also works on data frames.
+x <- filter(data, logFC > 1 & control >= 7);
+class(x);
+
+xt <- filter(tib, logFC > 1 & control >= 7);
+class(xt);
 
 
 #################################
@@ -2236,31 +2264,35 @@ stib %>% filter(logFC >= 1) %>% summarise(count = n())
 stib %>% filter(logFC >= 1 & control >= 7) %>%
   summarise(count = n())
 
+
 stib %>% filter(logFC >= 1 & control >= 7
-   & (grepl("regulator|sigma|transcription", product,
-      ignore.case = T))
+    & str_detect(product, "regulator|sigma|transcription")
     ); 
 
 # Below is the same as above.
 filter(stib, logFC >= 1 & control >= 7
-   & (grepl("regulator|sigma|transcription", product,
-      ignore.case = T))
+    & str_detect(product, "regulator|sigma|transcription")
     ); 
 
 # The outputs of the above two are assignable.
 
 hiup2 <- filter(stib, logFC >= 1 & control >= 7
-   & (grepl("regulator|sigma|transcription", product,
-      ignore.case = T))
+    & str_detect(product, "regulator|sigma|transcription")
     ); 
 hiup2
+
+### Inverting (logical NOT)
+
+stib %>% filter(logFC >= 1 & control >= 7
+    & !str_detect(product, "hypothetical")
+    ); 
+
 # }}}
 
 # {{{ Regular Expressions (regex)
 ###########################
 ### Regular Expressions ###
 ###########################
-
 
 # Suppose we want all genes with logFC more than 2.5 AND which
 # are not "hypothetical proteins".
@@ -2330,43 +2362,57 @@ f <- c(
 
 # The indexes which match.
 grep("colour", f);
+str_which(f, "colour");
 
 # The values which match.
 grep("colour", f, value = TRUE);
+str_subset(f, "colour");
 
 # One or zero 'u'.
 grep("colou?r", f, value = TRUE);
+str_subset(f, "colou?r");
 
 # $ to anchor match at end of string.
 grep("colou?r$", f, value = TRUE);
+str_subset(f, "colou?r$");
 
 grep("favou?rite colou?r$", f, value = TRUE);
+str_subset(f, "favou?rite colou?r$");
 
 # + after the space mean one or more spaces.
 # And, case-insensitive matching.
 grep("favou?rite +colou?r", f, value = TRUE, ignore.case = TRUE);
+str_subset(f, regex("favou?rite +colou?r", ignore_case = TRUE));
 
 # using \s for space. Otherwise same as above.
 grep("favou?rite\\s+colou?r", f, value = TRUE, ignore.case = TRUE);
+str_subset(f, regex("favou?rite\\s+colou?r", ignore_case = TRUE));
 
 # logical (TRUE or FALSE) output.
-grepl("favou?rite +colou?r", f, ignore.case = TRUE);
+grepl("favou?rite\\s+colou?r", f, ignore.case = TRUE);
+str_detect(f, regex("favou?rite\\s+colou?r", ignore_case = TRUE));
 
 # Substitution
 spacefixed <- gsub(" {2,}", " ", f);
+spacefixed1 <- str_replace_all(f, " {2,}", " ");
+
 spellfixed <- gsub("vori", "vouri", spacefixed);
+spellfixed1 <- str_replace_all(spacefixed, "vori", "vouri");
 
-
-tof.not.hypo <- !grepl(
+selector <- !grepl(
 "hypothetical +protein",
 data$product, ignore.case = TRUE);
 
+selector <- !str_detect(data$product,
+regex("hypothetical +protein", ignore_case = T));
+
+
 notHypoth2.5 <- data[abs(data$logFC) >= 2.5
-& tof.not.hypo , ]
+& selector , ]
 
 nrow(notHypoth2.5)
-
 head(notHypoth2.5)
+min(abs(notHypoth2.5$logFC))
 
 # There is a lot more to regular expressions than we
 # have demonstrated above. They are a truly general
@@ -2382,6 +2428,7 @@ head(notHypoth2.5)
 # gregexpr()
 # sub()
 # gsub()
+# And the alternatives in the package stringr of Tidyverse.
 # }}}
 
 # {{{ apply et al. (apply)
@@ -2407,104 +2454,35 @@ y
 ### lapply() and sapply() ###
 
 strepgenes <- read.csv("data/strepGenes.txt", header = F,
-                       stringsAsFactors = F);
+                       stringsAsFactors = F, col.names =
+                       c("all.names"));
+
+x <- head(strepgenes, 1); # for explaining
+str_split(x$all.names, "\\s+"); # for explaining
+
 
 canoname <- function(x) {
-spl <- strsplit(x, "\\s+", perl = TRUE);
-cano <- spl[[1]][!grepl("SVEN_|SVEN15_|vnz_|^-$",
-                        spl[[1]], perl = TRUE)];
+spl <- str_split(x, "\\s+");
+splitvec <- spl[[1]];
+cano <- splitvec[!grepl("SVEN_|SVEN15_|vnz_|^-$",
+    splitvec, perl = TRUE)];
 return(cano);
 }
 
-lapply(strepgenes[[1]], canoname);
+lapply(strepgenes$all.names, canoname);
 
-unlist(lapply(strepgenes[[1]], canoname));
+unlist(lapply(strepgenes$all.names, canoname));
 
-sapply(strepgenes[[1]], canoname);
+sapply(strepgenes$all.names, canoname);
 
-unname(sapply(strepgenes[[1]], canoname));
+unname(sapply(strepgenes$all.names, canoname));
 
 temp <- cbind(strepgenes,
-cano = unname(sapply(strepgenes[[1]], canoname)));
+cano = unname(sapply(strepgenes$all.names, canoname)));
 
 ### tapply() ###
 
 # We saw this when doing Factors.
-# }}}
-
-# {{{ Attaching a data frame (attach)
-##############################
-### Attaching a data frame ###
-##############################
-
-# It is a convenience feature allowing you to refer to df$column
-# as just column.
-
-
-rm(list = ls());
-
-control <- seq(1, 100);
-
-df <- read.csv("data/expression.csv", row.names = "gene");
-
-head(df);
-
-attach(df);    # Note the warning following this command.
-
-head(control);   # This control is not coming from the data frame df.
-
-rm(control);
-
-head(control);
-
-search()
-
-detach(df)
-
-search()
-# }}}
-
-# {{{ Clearing your work space (rm)
-################################
-### Clearing your work space ###
-################################
-
-### Scenario 1 ###
-
-x <- rnorm(20, mean = 20, sd = 3);
-y <- rnorm(20, mean = 10, sd = 3);
-
-# The above x and y are two objects sitting around from older work.
-
-# Below you create x and y again for some new analysis.
-# But the assignment to y fails because of a syntax error.
-
-x <- rnorm(20, mean = 212, sd = 3);
-y <- rnorm(20, mean = 210, , sd = 3);   # Assignment fails.
-
-z <- x - y;  # This is being evaluated using the new x and the old y!
-
-z;
-
-
-### Scenario 2 ###
-
-rm(list=ls());
-
-x <- rnorm(20, mean = 212, sd = 3);
-y <- rnorm(20, mean = 210, , sd = 3);  # Assignment fails.
-
-z <- x - y; # Fails.
-z;
-
-# You make the correction needed and run again.
-
-x <- rnorm(20, mean = 210, sd = 3);
-y <- rnorm(20, mean = 212, sd = 3);
-
-z <- x - y;
-
-z;
 # }}}
 
 # {{{ RNA-Seq (rnaseq)
@@ -2583,8 +2561,6 @@ st.deleted <- seq(6650, 6690);
 st.deleted <- str_c("Stri_", st.deleted);
 rdf[st.deleted, ];
 
-
-
 x <- rdf[, 6:ncol(rdf)];
 
 # Reorder the columns so that replicates are next to each other.
@@ -2602,14 +2578,14 @@ y <- DGEList(counts = x, group = group);
 
 # Filter out low counts. Then I also filter out
 # all the RNAs. 
-keep <- filterByExpr(y)
-keep[str_detect(names(keep), "RNA")] <- F;
+kept <- filterByExpr(y)
+kept[str_detect(names(kept), "RNA")] <- F;
 
-table(keep);
-keep[!keep];
+table(kept);
+kept[!kept];
 
 # help(subsetting, package = edger) to understand the line below.
-y <- y[keep,,keep.lib.sizes=FALSE]
+y <- y[kept,,keep.lib.sizes=FALSE]
 
 # Read products from 2 column file into data frame products.
 # Add gene lengths and products to y$genes dataframe.
@@ -2632,8 +2608,8 @@ y <- calcNormFactors(y)
 # you methods named rpkm() and rpkmByGroup()
 
 # 4. Now use rpkmByGroup() to get the RPKMs and write them
-# out to a tsv file. You will need as_tibble() here.
-
+# out to a tsv file using the write_tsv function. You will
+# need as_tibble() here.
 
 ###############################
 ### Differential Expression ###
@@ -2675,27 +2651,17 @@ otib <- as_tibble(odf, rownames = "Gene");
 write_tsv(otib, ofn, quote_escape = "none");
 }
 
-
-
-
 # Collecting the RPKMs of the most highly changed genes
- 
-# "wt.hfq.rpkm" is a matrix. "de.table" is a data frame.
-# "de.table" is ordered such that the most significantly
-# changed genes are at the top.
- 
-# How will you get the RPKMs of the 30 most
-# significantly changed genes?
- 
-#################################
-### Do the following yourself ###
-#################################
 
-# 1. From de.table get a vector v, of the first 30 row
-# names.
+rpkms <- read.delim("out/rpkms.tsv", header = T, row.names = 1);
+bylfc.day5 <- outlist$day5[
+order(abs(outlist$day5$logFC), decreasing = T), ];
 
-# 2. Create top30.rpkm by subscripting wt.hfq.rpkm to
-# get the rows in vector v made above and all columns.
+rpkms.bylfc <- rpkms[rownames(bylfc.day5), ]
+head(rpkms.bylfc, n = 30);
+
+filter(rpkms.bylfc, d2 >= 5 | d5 >= 5) %>%
+top_n(30)
 
 ##################
 ### Why logFC? ###
@@ -2850,7 +2816,7 @@ boxplot(m)
 # Calls to par() affect the active plotting device.
 
 # Calls to par() may be made before, in-between and
-# along with calls to plot(), points, lines() etc.
+# along with calls to plot(), points(), lines() etc.
 
 # The changed parameters affect all subsequent commands
 # acting on the plot.
@@ -3104,7 +3070,11 @@ labels = c("tfaG deletion strain",
 xlab("Hours of growth") + ylab(l2e);
 
 # Main title
-p4 <- p3 + ggtitle("Expression of SpoF in M600 and tfaG deletion strains\nover 60 hours of growth in shaken flask");
+plot.title <- c("Expression of SpoF in M600 and tfaG");
+plot.title <- paste(plot.title, "deletion strains\nover 60");
+plot.title <- paste(plot.title, "hours of growth in shaken flask");
+
+p4 <- p3 + ggtitle(plot.title);
 
 # Theme
 p5 <- p4 +
@@ -3124,25 +3094,11 @@ p5 <- p4 +
   theme(panel.grid = element_blank())
 
 p5
-ggsave("../expression.pdf", p5)
-ggsave("../expression.png", p5)
+ggsave("out/expression.pdf", p5)
+ggsave("out/expression.png", p5)
 
 ## p + xlim(5, 20) + ylim(0, 50)
 
-#################################
-### Do the following yourself ###
-#################################
-
-# A while back we saved a RDS file named
-# unsorted_lfc.rds.
-
-# Use readRDS() to read this file into an object named
-# ulfc. Determine its class and head() it.
-
-# Use ggplot() to plot the logFC column on the y-axis
-# against serial numbers on the x-axis.
-
-# Convert logFC to linear fold change and plot as above.
 # }}}
 
 # {{{ Spore lengths (sporelens)
@@ -3332,7 +3288,7 @@ plot(hmut, col = "#00990055", add = TRUE);
 
 ### Putting the final plot in a png file.
 
-png(filename = "../intersept.png", width = 1200, height = 800);
+png(filename = "out/intersept.png", width = 1200, height = 800);
 plot(hwt, col = "#00009955",
      xlim = xlm, ylim = ylm, xlab = "Septal distance",
      main = "Histograms of WT and Mutant"
@@ -3384,7 +3340,7 @@ h3 <- ggplot(df, aes(strain, sep.dist, colour = strain)) +
 
 # Writing ggplot2 objects to a file.
 
-pdffn <- c("../hist123.pdf");
+pdffn <- c("out/hist123.pdf");
 pdf(pdffn)
 print(h1)
 print(h2)
@@ -3393,7 +3349,7 @@ dev.off()
 
 # ggsave()
 
-pdffn <- c("../hist1.pdf");
+pdffn <- c("out/hist1.pdf");
 ggsave(pdffn, h1)
 # }}}
 
@@ -3426,4 +3382,80 @@ ggsave(pdffn, h1)
 # }}}
 
 __END__
+
+
+# {{{ Attaching a data frame (attach)
+##############################
+### Attaching a data frame ###
+##############################
+
+# It is a convenience feature allowing you to refer to df$column
+# as just column.
+
+
+rm(list = ls());
+
+control <- seq(1, 100);
+
+df <- read.csv("data/expression.csv", row.names = "gene");
+
+head(df);
+
+attach(df);    # Note the warning following this command.
+
+head(control);   # This control is not coming from the data frame df.
+
+rm(control);
+
+head(control);
+
+search()
+
+detach(df)
+
+search()
+# }}}
+
+# {{{ Clearing your work space (rm)
+################################
+### Clearing your work space ###
+################################
+
+### Scenario 1 ###
+
+x <- rnorm(20, mean = 20, sd = 3);
+y <- rnorm(20, mean = 10, sd = 3);
+
+# The above x and y are two objects sitting around from older work.
+
+# Below you create x and y again for some new analysis.
+# But the assignment to y fails because of a syntax error.
+
+x <- rnorm(20, mean = 212, sd = 3);
+y <- rnorm(20, mean = 210, , sd = 3);   # Assignment fails.
+
+z <- x - y;  # This is being evaluated using the new x and the old y!
+
+z;
+
+
+### Scenario 2 ###
+
+rm(list=ls());
+
+x <- rnorm(20, mean = 212, sd = 3);
+y <- rnorm(20, mean = 210, , sd = 3);  # Assignment fails.
+
+z <- x - y; # Fails.
+z;
+
+# You make the correction needed and run again.
+
+x <- rnorm(20, mean = 210, sd = 3);
+y <- rnorm(20, mean = 212, sd = 3);
+
+z <- x - y;
+
+z;
+# }}}
 
