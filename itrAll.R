@@ -225,6 +225,10 @@ cannot finish, try Escape (Control-C in Linux) to bail out.
 This usually happens because of unmatched parentheses or
 quotes.
 
+* New function names will keep appearing as we go along. I
+  will tell you what they do as they appear. There are too
+  many of them to put in any kind of logical sequence.
+
 ## Use names as needed
 
 - While doing the tasks during this course you will
@@ -272,6 +276,13 @@ vnz.tib <- read_csv("data/vnz_genes.csv");
 # Writing data to a text file.
 write_csv(vnz.tib, "out/vnz_genes.csv",
 quote_escape = "none")
+
+### Things to be careful about ###
+
+# Don't ignore error messages.
+# Ensure you have read in all the data by counting lines.
+# Confirm column types are what they should be.
+# Column names may have been changed by R.
 
 # }}}
 
@@ -343,7 +354,6 @@ typeof(y);
 # function
 # NULL
 
-
 # }}}
 
 # {{{ Objects (objects)
@@ -393,7 +403,7 @@ typeof(y);
 # let us refer to variables much more easily than would be
 # possible through memory addresses.
 
-# To symbols (names) may refer to the same memory address.
+# Two symbols (names) may refer to the same memory address.
 # In fact this is what happens after
 
 y <- x;
@@ -434,7 +444,6 @@ x[2] # refers to 20 and,
 x[3] # refers to 30
 
 # Indexing begins from one, not zero.
-
 
 x <- c(2.9, 4.1, 3.9, 4.5, 3.7, 45.3, 21.6);
 
@@ -483,7 +492,12 @@ x[v];
 # 1. Objects x, y and z should still be in existence at this
 # stage. Do a listing of objects to confirm this.
 
-# 2. Examine the output of unname(x).
+# 2. Examine the output of the following
+
+unname(x);
+class(x);
+class(y);
+class(z);
 
 # 3. Make a copy of x in vecx. We will use it when we look
 # at functions.
@@ -702,6 +716,7 @@ dotdemo1 <- function(x, ...) {
   cat("x is: ", x, "\n");
   dots <- list(...);
   cat("Then: ", dots[[1]], "\n");
+  cat("Or: ", ...[[1]], "\n");
 }
 dotdemo1("stuff", "morestuff");
 
@@ -796,6 +811,11 @@ attach(environment(ttg.earth));
 search();
 
 time2ground(10);
+
+g
+
+ls()
+
 # }}}
 
 # {{{ Querying the nature of objects (queryingType)
@@ -830,8 +850,8 @@ typeof(y);
 class(x);
 class(y);
 
-# str() is useful to display the internal structure of R objects.
-# Especially useful for data frames and more complex objects.
+# str() will show you an string representation of its
+# argument. 
 
 str(vnz.df);
 
@@ -865,9 +885,9 @@ str(vnz.df);
 
 # Check before doing the below.
 
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install("edgeR")
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install("edgeR")
 
 #################################
 ### Using packages. library() ###
@@ -904,13 +924,10 @@ detach("package:edgeR", unload = TRUE)
 ### Reading documentation ###
 #############################
 
-# Go to the "Help" tab in the bottom right
-# pane then search for "seq". You can also
-# do the below to see the help in the "Help"
-# tab.
-
 help("seq")
 help("plot")
+
+# In Rstudio the actual text appears in the "Help" tab.
 
 
 # Below shows all the packages which have anything to do
@@ -922,7 +939,6 @@ help.search("sequence")
 ### Sometimes there is runnable example code. ###
 
 example("hist")
-
 
 ### There are lots of bundled example data sets ###
 
@@ -1191,7 +1207,7 @@ class(unlist(k))
 x <- seq(1,10);
 x
 class(x);
-class(x) <- c(class(x), "itr");
+class(x) <- c(class(x), "wholeNum");
 class(x);
 
 attr(x, "purpose")
@@ -3359,15 +3375,17 @@ ggsave(pdffn, h1)
 
 Like any other skill, the best way to maintain and
 advance your R skills is by using it regularly. Try to get
-together with a friend and use R regularly. You will learn
-a lot faster if you practice in pairs. 
+together with a friend and use R regularly. 
+
+It also helps to rule out easier alternatives such as MS
+Excel. They are only superficially efficient.
 
 Do not try to remember things. That is what computers are
 for. Develop the skill to read documentation quickly. It
 more important than you think. Not just in R.
 
-Some things are easier done in a general purpose
-programming language such as Perl or Python.
+Some things are easier done in a general purpose programming
+language such as Perl or Python.
 
 [R manuals webpage](https://cran.r-project.org/manuals.html)
 
