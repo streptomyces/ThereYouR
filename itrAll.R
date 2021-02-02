@@ -135,6 +135,11 @@ screen space.
 
 * Type commands in the _source_ editor.
 
+* Matching parentheses and quotes are automatically
+  inserted. You can disable this in options. I do.
+
+`Tools -> Global Options -> Code -> Editing`
+
 * To run a command from the _source_ editor place the
   cursor anywhere on that line and press `Control-Enter`.
 
@@ -215,11 +220,6 @@ names. Choose sensible names.
 
     x <- 3; y <- x * 3; x; y
 
-* Matching parentheses and quotes are automatically
-inserted. You can disable this in options. I do.
-
-`Tools -> Global Options -> Code -> Editing`
-
 * If you get inside a complicated command which you
 cannot finish, try Escape (Control-C in Linux) to bail out.
 This usually happens because of unmatched parentheses or
@@ -238,21 +238,23 @@ Then you can refer to `x` in the subsequent steps of the
 task.
 # }}}
 
-# {{{ Data structures (struct)
-#######################
-### Data structures ###
-#######################
+# {{{ Reading and Writing Data (dataio)
+################################
+### Reading and Writing Data ###
+################################
 
 # Most analyses in R start with reading some data into R.
 
-# Collections of the basic data types.
+# Data gets read into "objects" which are structured
+# collections of the more fundamental data types.
 
-# Several data structures are provided in R as classes.
+# Objects belong to "classes". Several classes are defined
+# in R.
 
-# It is possible to make your own but we will not be doing
-# so. The ones provided are sufficient for what we do.
+# It is possible to make your own classes but we will not be
+# doing so. The ones provided are sufficient for what we do.
 
-# They range in complexity and flexibility.
+# Classes range in complexity and flexibility.
 
 # Reading data from a text file.
 vnz.df <- read.csv("data/vnz_genes.csv", header = T,
@@ -359,8 +361,8 @@ typeof(y);
 
 # There are no simple variables in R.
 
-# Even if you need to store just one value you use a data
-# structure that is capable of storing multiple values.
+# Even if you need to store just one value you use an object
+# of a class that is capable of storing multiple values.
 # }}}
 
 # {{{ Variables, names, symbols, bindings (variables)
@@ -383,7 +385,7 @@ typeof(y);
 #     The symbol "x" is bound to the value 42.
 
 #     Assuming a clean session of R, the symbol "y" is
-#     unbound.
+#     "unbound".
 
 # Don't imagine x to be a container containing the value 42.
 
@@ -2995,7 +2997,6 @@ barplot(ht, col = crpfun(19))
 
 # Control the overall appearance of a plot.
 
-rm(list = ls());
 df <- read.csv("data/tfaG.csv");
 head(df);
 
