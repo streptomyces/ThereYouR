@@ -3317,8 +3317,6 @@ ggplot(df, aes(sep.dist, fill = strain)) +
   geom_histogram(alpha = 1, bins = 40, colour = "grey80") +
   facet_wrap(~strain)
 
-
-
 h1 <- ggplot(df, aes(sep.dist, fill = strain)) +
   geom_histogram(alpha = 0.3, bins = 60, color = "grey70")
 h1
@@ -3355,31 +3353,30 @@ pdffn <- c("out/hist1.pdf");
 ggsave(pdffn, h1)
 # }}}
 
-# {{{ Closing comments (close)
-########################
-### Closing comments ###
-########################
+# {{{ Closing comments (close.md)
+# Remarks
 
-# Like any other skill, the best way to maintain and
-# advance your R skills is by using it regularly. Try to get
-# together with a friend and use R regularly. You will learn
-# a lot faster if you practice in pairs. 
+Like any other skill, the best way to maintain and
+advance your R skills is by using it regularly. Try to get
+together with a friend and use R regularly. You will learn
+a lot faster if you practice in pairs. 
 
-# Don't try to remember things. That is what computers are
-# for. Develop the skill to read documentation quickly. It
-# more important than you think. Not just in R.
+Do not try to remember things. That is what computers are
+for. Develop the skill to read documentation quickly. It
+more important than you think. Not just in R.
 
-# R manuals webpage.
-# https://cran.r-project.org/manuals.html
+Some things are easier done in a general purpose
+programming language such as Perl or Python.
 
-# PDF of the Introduction to R book.
-# https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf
+[R manuals webpage](https://cran.r-project.org/manuals.html)
 
-# RNA-Seq data analysis using edgeR.
-# https://f1000research.com/articles/5-1438
+[PDF of the Introduction to R book]
+(https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf)
 
-# Some things are easier done in a general purpose
-# programming language such as Perl or Python.
+[RNA-Seq data analysis using edgeR]
+(https://f1000research.com/articles/5-1438)
+
+There are some very good tutorials on YouTube.
 
 # }}}
 
