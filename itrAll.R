@@ -68,7 +68,6 @@ There are (almost always) more than one way to do it.
 Your way of doing things might be different from mine but
 correct nevertheless.
 
-<!--
 ## Things mentioned below will be done during the course
 ### Please don't do them before hand. 
 
@@ -104,7 +103,6 @@ with me. Resist the temptation to charge ahead.
 
     list.files()
 ~~~
--->
 # }}}
 
 # {{{ RStudio (rstudio.md)
