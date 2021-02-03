@@ -933,7 +933,6 @@ help("plot")
 
 help.search("sequence")
 
-
 ### Sometimes there is runnable example code. ###
 
 example("hist")
