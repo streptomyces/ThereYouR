@@ -1656,7 +1656,6 @@ df[rows, colhead];
 
 df$x 
 
-
 ### If you ask for multiple columns you always get a data frame in return.
 #   Even if you have asked for a single row.
 
@@ -1683,7 +1682,6 @@ df[2, c("x", "y")]
 # hyphal width in row number 58 and store it in a vector
 # named strain58. Check the class and mode of strain58.
 
-
 ### Tidyverse style ###
 
 slice(hwt, ronum);
@@ -1691,6 +1689,12 @@ slice(hwt, ronum);
 # hwt[ronum,] # also works.
 
 hwt[58, "strain"]
+# }}}
+
+# {{{ End of Day 1 (nofile)
+####################
+### End of Day 1 ###
+####################
 # }}}
 
 # {{{ NA, NaN, Inf, NULL (null)
@@ -1737,7 +1741,6 @@ class(ba[3, "sold"]);
 # 2. Examine the output of summary(x).
 
 # 3. Examine the output of is.na(x).
-
  
 ### Inf and -Inf are reserved words in R.
 
