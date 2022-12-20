@@ -1,31 +1,26 @@
 # vim: set tw=60 nosmartindent: ###
 # {{{ README (README.md);
-# Advanced R 3 and 4 Feb 2021
+# Advanced R 30 Jan and 1 Feb 2023
 
-## Requirement to be met _before_ the course.
+As soon as you arrive on the first day
 
-* Course will be delivered over a Zoom meeting so you should
-  have reasonably good internet access, webcam, microphone
-  and speakers.
+1. Login on one the PCs in the training
+theatre.
 
-* Have an up-to-date installation of R and RStudio
-  on the computer on which you will be attending this
-  course.
-
-* On the first day of the course, as soon as you join the
-  Zoom meeting, point your web browser to the URL shown
-  below.
+2. Start a web browser and point it to the URL shown
+below.
 
 ### https://streptomyces.github.io/ThereYouR/
 
 ## Some requests
 
-* Please have your cameras on during the course so the
-  instructor has some visual feedback.
+* Please put your mobile phones away.
+There is a break every 90 minutes, you can use them then.
 
-* Ask if something is not clear.
+* Things get complicated as we proceed further into the course.
+So please ask if something is not clear.
 
-## Timings for both days of the course.
+## Timings for both Mon 30 Jan and Wed 1 Feb 2023
 
 ~~~ 
 Course                       0930  to   1100
@@ -55,16 +50,15 @@ Course                       1600  to   1730
 - I will explain the commands and the syntax you have
   just seen in action.
 
-
 ### Sometimes there will be things for you to do on your own.
 
 + These tasks will be described in semi-plain english.
 
-+ You will have to think how to achieve them in R using as
-many steps and variables as you need.
++ You will have to think how to do them in R using as many
+steps and variables as you need.
 
 + Finally, I will show you how I would have done the tasks.
-There are (almost always) more than one way to do it. 
+There are (almost always) more than one ways to do it. 
 Your way of doing things might be different from mine but
 correct nevertheless.
 
