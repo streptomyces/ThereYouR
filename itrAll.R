@@ -17,7 +17,7 @@ below.
 * Please put your mobile phones away.
 There is a break every 90 minutes, you can use them then.
 
-* Things get complicated as we proceed further into the course.
+* Things get complicated as we progress into the course.
 So please ask if something is not clear.
 
 ## Timings for both Mon 30 Jan and Wed 1 Feb 2023
